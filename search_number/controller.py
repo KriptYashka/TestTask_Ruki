@@ -4,15 +4,18 @@ class SearchController:
 
 	@staticmethod
 	def welcome():
-		with open("welcome") as fin:
-			print(fin.read())
+		text = """Программа тестового задания для сервиса 'Руки'
+
+Разработчик: Кучук Егор Андреевич (kriptyashka)"""
+		print(text)
 
 	def read(self):
 		self.url = input("Введите URL сайта: ")
+		return self.url
 
 
 def main():
-	print("Новый файл, юху!")
+	pass
 
 
 if __name__ == "__main__":

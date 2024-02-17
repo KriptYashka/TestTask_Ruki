@@ -8,11 +8,11 @@ from search_number.re_number import re_rus_number
 
 
 class SearchHandler:
-	def __init__(self, url):
+	def __init__(self, url=None):
 		self.url = url
-		self.data = None
 
-	def get_number(self, text):
+	@staticmethod
+	def get_number(text):
 		number = "".join([symbol for symbol in text if symbol.isdigit() or symbol == "+"]).replace("+7", "8")
 		if len(number) not in [7, 10, 11]:
 			return None
@@ -23,6 +23,8 @@ class SearchHandler:
 		return "8" + number[1:]
 
 	def get_nums(self):
+		if self.url is None:
+			raise NotImplementedError("Не передано URL")
 		request = requests.get(self.url, allow_redirects=False)
 		if request.status_code != 200:
 			return None
@@ -41,16 +43,19 @@ class SearchHandler:
 def main():
 	logging.basicConfig(level=logging.DEBUG)
 	urls = [
-		"https://hands.ru/company/about/",
 		"https://repetitors.info/",
 		"https://loft-zavod.ru/",
 		"https://informatics.ru/",
-		"https://habr.com/ru/articles/110731/"
+		"https://habr.com/ru/articles/110731/",
+		"https://almazcinema.ru/myt/p/contacts/"
 	]
 	sh = SearchHandler(urls[-1])
 	nums = sh.get_nums()
-	for num in nums:
-		print(num)
+	if nums is None:
+		print("Нет номеров")
+	else:
+		for num in nums:
+			print(num)
 
 
 if __name__ == "__main__":
