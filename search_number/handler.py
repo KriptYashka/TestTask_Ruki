@@ -17,13 +17,13 @@ class SearchHandler:
 			return None
 		soup = bs(request.text, "html.parser")
 		data = re.search(re_rus_number, soup.text)
-		# print(request.)
 		print(data)
 
 
 def main():
 	# sh = SearchHandler("https://hands.ru/company/about/")
 	sh = SearchHandler("https://repetitors.info/")
+	sh = SearchHandler("https://loft-zavod.ru/")
 	sh.get_page()
 
 
